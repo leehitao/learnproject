@@ -1,8 +1,6 @@
-package com.lht.learn.design23.strategy;
+package com.lht.learn.design23.strategy.campratortest;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * @author Lee
