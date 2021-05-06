@@ -1,6 +1,7 @@
 package com.lht.learn.design23.strategy.v2.model;
 
-import com.company.design.strategy.v2.Node;
+
+import com.lht.learn.design23.strategy.v2.Node;
 
 import java.util.ArrayList;
 import java.util.List;
