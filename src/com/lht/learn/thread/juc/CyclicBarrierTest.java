@@ -12,41 +12,34 @@ import java.util.concurrent.locks.ReentrantLock;
  * @Version 1.0
  */
 public class CyclicBarrierTest {
-	public static void main(String[] args) {
-		Lock lock = new ReentrantLock();
 
-		Thread[] threads = new Thread[20];
-		CyclicBarrier cyclicBarrier = new CyclicBarrier(5, new Runnable() {
-			@Override
-			public void run() {
-				System.out.println("凑够5个人，开车");
-			}
-		});
-		for (int i = 0; i < threads.length; i++) {
+    public static void main(String[] args) {
 
-			threads[i] = new Thread(()->{
-				try {
-					TimeUnit.SECONDS.sleep(1);
-					System.out.println(Thread.currentThread().getName()+"等着");
-					cyclicBarrier.await();
-					System.out.println(Thread.currentThread().getName()+":终于到我们了");
+        Thread[] threads = new Thread[8];
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("凑够3个人了马上发车梧桐山");
+            }
+        });
 
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (BrokenBarrierException e) {
-					e.printStackTrace();
-				}
-			},String.valueOf(i));
-		}
-		for (Thread thread : threads) {
-			thread.start();
-		}
-		for (Thread thread : threads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+
+        Runnable runnable = () -> {
+            try {
+                String name = Thread.currentThread().getName();
+                System.out.println(name + "正在走来");
+                TimeUnit.SECONDS.sleep(Integer.valueOf(name));
+                System.out.println(name + "到了");
+                cyclicBarrier.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            }
+        };
+
+        for (int i = 0; i < 8; i++) {
+            new Thread(runnable,String.valueOf(i+1)).start();
+        }
+    }
 }
