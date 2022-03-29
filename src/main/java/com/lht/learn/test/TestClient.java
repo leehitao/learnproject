@@ -45,15 +45,4 @@ public class TestClient {
 
 	}
 
-	private static void ss222s(){
-		while(!getRedis()){
-			if(getDBLock()){
-				getDBData();
-				updateRedis();
-				break;
-			}
-			sleep();
-		}
-
-	}
 }
